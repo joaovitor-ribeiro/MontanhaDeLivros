@@ -11,6 +11,7 @@ namespace MontanhasDeLivros.Models
         public MontanhasDeLivrosContext (DbContextOptions<MontanhasDeLivrosContext> options)
             : base(options)
         {
+            
         }
 
         public DbSet<Books> Books { get; set; }

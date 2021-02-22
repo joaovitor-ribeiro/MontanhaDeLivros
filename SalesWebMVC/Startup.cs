@@ -41,8 +41,8 @@ namespace MontanhasDeLivros
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddDbContext<MontanhasDeLivrosContext>(options =>
-                    options.UseMySql(Configuration.GetConnectionString("SalesWebMvcContext"), builder =>
-                        builder.MigrationsAssembly("SalesWebMvc")));
+                    options.UseMySql(Configuration.GetConnectionString("MontanhaDeLivrosContext"), builder =>
+                        builder.MigrationsAssembly("MontanhaDeLivros")));
 
             services.AddScoped<SeedingService>();
             //services.AddScoped<SellerService>();

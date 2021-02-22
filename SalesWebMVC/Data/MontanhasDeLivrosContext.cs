@@ -13,7 +13,7 @@ namespace MontanhasDeLivros.Models
         {
         }
 
-        public DbSet<Department> Department { get; set; }
+        public DbSet<Books> Books { get; set; }
         public DbSet<Seller> Seller { get; set; }
         public DbSet<SalesRecord> SalesRecord { get; set; }
     }

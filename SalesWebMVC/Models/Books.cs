@@ -1,4 +1,6 @@
-﻿namespace MontanhasDeLivros.Models
+﻿using System.Collections.Generic;
+
+namespace MontanhasDeLivros.Models
 {
     public class Books
     {
@@ -9,6 +11,8 @@
         public string Author { get; set; }
         public string Publisher { get; set; }
         public int AmountBooks { get; set; }
+
+        public ICollection<SalesRecord> Sales { get; set; } = new List<SalesRecord>();
 
         public Books()
         {

@@ -37,7 +37,6 @@ namespace MontanhasDeLivros
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddDbContext<MontanhasDeLivrosContext>(options =>
@@ -45,6 +44,7 @@ namespace MontanhasDeLivros
                         builder.MigrationsAssembly("MontanhaDeLivros")));
 
             services.AddScoped<SeedingService>();
+            services.AddScoped<BookService>();
             //services.AddScoped<SellerService>();
             //services.AddScoped<DepartmentService>();
             //services.AddScoped<SalesRecordService>();

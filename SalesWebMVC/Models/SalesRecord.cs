@@ -14,7 +14,6 @@ namespace MontanhasDeLivros.Models
         [DisplayFormat(DataFormatString = "{0:F2}")]
         public double Amount { get; set; }
         public Seller Seller { get; set; }
-       
 
         public SalesRecord()
         {
@@ -30,17 +29,17 @@ namespace MontanhasDeLivros.Models
 
         //public void AddBooks(Books bo)
         //{
-        //    Books.Add(bo);
+        //    Book.Add(bo);
         //}
 
         //public void RemoveSales(Books bo)
         //{
-        //    Books.Remove(bo);
+        //    Book.Remove(bo);
         //}
 
         //public double TotalSales(DateTime initial, DateTime final)
         //{
-        //    return Books.Where(sr => sr.Date >= initial && sr.Date <= final).Sum(sr => sr.Amount);
+        //    return Book.Where(sr => sr.Date >= initial && sr.Date <= final).Sum(sr => sr.Amount);
         //}
     }
 }

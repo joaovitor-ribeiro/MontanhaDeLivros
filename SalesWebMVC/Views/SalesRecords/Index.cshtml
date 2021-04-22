@@ -1,58 +1,70 @@
-﻿@*@{
-    ViewData["Title"] = "Sales Records";
+﻿@model IEnumerable<MontanhasDeLivros.Models.SalesRecord>
+
+@{
+    ViewData["Title"] = "Index";
 }
 
-<h2>@ViewData["Title"]</h2>
-<div class="row">
-    <div class="col-md-6">
-        <form class="form-horizontal" asp-action="SimpleSearch">
-            <fieldset>
-                <legend>Simple search</legend>
-                <div class="form-group">
-                    <label for="minDate" class="col-lg-2 control-label">Min Date</label>
-                    <div class="col-lg-10">
-                        <input type="date" name="minDate" class="form-control" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="maxDate" class="col-lg-2 control-label">Max Date</label>
-                    <div class="col-lg-10">
-                        <input type="date" name="maxDate" class="form-control" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-lg-10 col-lg-offset-2">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
-    </div>
-</div>
+<h2>Sales</h2>
 
-<div class="row">
-    <div class="col-md-6">
-        <form class="form-horizontal" asp-action="GroupingSearch">
-            <fieldset>
-                <legend>Grouping search</legend>
-                <div class="form-group">
-                    <label for="minDate" class="col-lg-2 control-label">Min Date</label>
-                    <div class="col-lg-10">
-                        <input type="date" name="minDate" class="form-control" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="maxDate" class="col-lg-2 control-label">Max Date</label>
-                    <div class="col-lg-10">
-                        <input type="date" name="maxDate" class="form-control" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-lg-10 col-lg-offset-2">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
-    </div>
-</div>*@
+<p>
+    <a asp-action="Create" class="btn btn-default">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr class="btn-default">
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Book)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Seller)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.Title)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Seller)
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

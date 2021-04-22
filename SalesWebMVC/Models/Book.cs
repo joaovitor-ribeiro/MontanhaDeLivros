@@ -12,8 +12,6 @@ namespace MontanhasDeLivros.Models
         public string Publisher { get; set; }
         public int AmountBook { get; set; }
 
-        public ICollection<SalesRecord> Sales { get; set; } = new List<SalesRecord>();
-
         public Book()
         {
         }

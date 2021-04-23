@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MontanhasDeLivros.Models;
 using MontanhasDeLivros.Services;
@@ -12,47 +13,49 @@ namespace MontanhasDeLivros.Controllers
     public class SalesRecordsController : Controller
     {
         private readonly MontanhasDeLivrosContext _context;
+        private readonly SalesRecordService _salesRecordService;
 
-        public SalesRecordsController(MontanhasDeLivrosContext context)
+        public SalesRecordsController(
+            MontanhasDeLivrosContext context,
+            SalesRecordService salesRecordService
+            )
         {
             _context = context;
+            _salesRecordService = salesRecordService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var result = (from rs in _context.SalesRecord 
-                          join bk in _context.Book on rs.Book.Id equals bk.Id
-                          select new SalesRecord(){
-                                Id = rs.Id,   
-                                Date = rs.Date,
-                                Amount = rs.Amount,
-                                Book = bk
-                            });
+            var result = await _salesRecordService.GetAll();
 
             return View(result) ;
         }
 
         public IActionResult Create()
         {
+            ViewBag.BookId = new SelectList
+                (
+                    _context.Book.ToList(),
+                    "Id",
+                    "Title"
+                );
+
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Date,Amount,Description")] SalesRecord sale)
+        public async Task<IActionResult> Create([Bind("Id,Date,Amount,Description,Quantity")] SalesRecord sale, string bookId)
         {
-            if (ModelState.IsValid)
-            {
-                var bookId = int.Parse(HttpContext.Request.Form["Book"].First());
-                var book = _context.Book.FirstOrDefault(x => x.Id == bookId);
+            if (!ModelState.IsValid) return View(sale);
+            
+            var book = int.Parse(bookId);
 
-                sale.Book = book;
+            var response = await _salesRecordService.CreateSale(sale, book);
 
-                _context.Add(sale);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(sale);
+            if (!response) return View(sale);
+            
+            return RedirectToAction(nameof(Index));
         }
 
 
@@ -71,8 +74,17 @@ namespace MontanhasDeLivros.Controllers
                               Id = rs.Id,
                               Date = rs.Date,
                               Amount = rs.Amount,
-                              Book = bk
+                              Book = bk,
+                              Quantity = rs.Quantity
                           }).FirstOrDefault();
+
+            ViewBag.BookId = new SelectList
+                (
+                    _context.Book.ToList(),
+                    "Id",
+                    "Title",
+                    sale.Book.Id
+                );
 
             if (sale == null)
             {
@@ -83,19 +95,14 @@ namespace MontanhasDeLivros.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Date,Amount,Seller")] SalesRecord sale)
+        public async Task<IActionResult> Edit([Bind("Id,Date,Amount,Seller,Quantity")] SalesRecord sale, string bookId)
         {
-            if (id != sale.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var bookId = int.Parse(HttpContext.Request.Form["Book.Id"].First());
-                    var book = _context.Book.FirstOrDefault(x => x.Id == bookId);
+                    var selectedBookId = int.Parse(bookId);
+                    var book = _context.Book.FirstOrDefault(x => x.Id == selectedBookId);
                     sale.Book = book;
                     _context.Update(sale);
                     await _context.SaveChangesAsync();
@@ -131,7 +138,8 @@ namespace MontanhasDeLivros.Controllers
                             Id = rs.Id,
                             Date = rs.Date,
                             Amount = rs.Amount,
-                            Book = bk
+                            Book = bk,
+                              Quantity = rs.Quantity
                         }).FirstOrDefault();
 
             if (sale == null)
@@ -157,7 +165,8 @@ namespace MontanhasDeLivros.Controllers
                             Id = rs.Id,
                             Date = rs.Date,
                             Amount = rs.Amount,
-                            Book = bk
+                            Book = bk,
+                            Quantity = rs.Quantity
                         }).FirstOrDefault();
             if (sale == null)
             {

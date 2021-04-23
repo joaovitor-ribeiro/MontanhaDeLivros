@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MontanhasDeLivros.Models
@@ -13,19 +12,19 @@ namespace MontanhasDeLivros.Models
 
         [DisplayFormat(DataFormatString = "{0:F2}")]
         public double Amount { get; set; }
-        public Seller Seller { get; set; }
+        public int Quantity { get; set; }
         public Book Book { get; set; }
 
         public SalesRecord()
         {
         }
 
-        public SalesRecord(int id, DateTime date, double amount, Seller seller)
+        public SalesRecord(int id, DateTime date, double amount, int quantity)
         {
             Id = id;
             Date = date;
             Amount = amount;
-            Seller = seller;
+            Quantity = quantity;
         }
 
         //public void AddBooks(Books bo)

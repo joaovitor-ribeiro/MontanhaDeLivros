@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MontanhasDeLivros.Models
 {
@@ -12,6 +14,8 @@ namespace MontanhasDeLivros.Models
         public string Publisher { get; set; }
         public int AmountBook { get; set; }
 
+        public ICollection<SalesRecord> Sales { get; set; } = new List<SalesRecord>();
+
         public Book()
         {
         }
@@ -24,6 +28,11 @@ namespace MontanhasDeLivros.Models
             Author = author;
             Publisher = publisher;
             AmountBook = amountBook;
+        }
+
+        public double TotalSales(DateTime initial, DateTime final)
+        {
+            return Sales.Where(sr => sr.Date >= initial && sr.Date <= final).Sum(sr => sr.Amount);
         }
     }
 }

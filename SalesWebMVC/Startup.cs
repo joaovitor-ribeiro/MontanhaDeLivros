@@ -44,9 +44,7 @@ namespace MontanhasDeLivros
                         builder.MigrationsAssembly("MontanhaDeLivros")));
 
             services.AddScoped<SeedingService>();
-            services.AddScoped<BookService>();
-            //services.AddScoped<SellerService>();
-            //services.AddScoped<DepartmentService>();
+            services.AddScoped<BookService>();         
             services.AddScoped<SalesRecordService>();
         }
 

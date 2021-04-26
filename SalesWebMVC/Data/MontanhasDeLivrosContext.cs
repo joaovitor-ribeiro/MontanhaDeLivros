@@ -14,7 +14,6 @@ namespace MontanhasDeLivros.Models
         }
 
         public DbSet<Book> Book { get; set; }
-        public DbSet<Seller> Seller { get; set; }
         public DbSet<SalesRecord> SalesRecord { get; set; }
     }
 }

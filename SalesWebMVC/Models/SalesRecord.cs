@@ -19,12 +19,13 @@ namespace MontanhasDeLivros.Models
         {
         }
 
-        public SalesRecord(int id, DateTime date, double amount, int quantity)
+        public SalesRecord(int id, DateTime date, double amount, int quantity, Book book)
         {
             Id = id;
             Date = date;
             Amount = amount;
             Quantity = quantity;
+            Book = book;
         }
 
         //public void AddBooks(Books bo)

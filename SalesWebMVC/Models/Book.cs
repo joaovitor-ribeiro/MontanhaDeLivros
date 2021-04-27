@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace MontanhasDeLivros.Models
@@ -8,6 +9,7 @@ namespace MontanhasDeLivros.Models
     {
         public int Id { get; set; }
         public string Title { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F2}")]
         public float Price { get; set; }
         public string Description { get; set; }
         public string Author { get; set; }

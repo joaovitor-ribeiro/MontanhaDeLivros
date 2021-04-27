@@ -4,28 +4,28 @@
     ViewData["Title"] = "Create";
 }
 
-<h2>Create</h2>
+<h2>Cadastrar</h2>
 
-<h4>Sales Record</h4>
+<h4>Vendas</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
+                <label asp-for="Date" class="control-label">Data:</label>
                 <input asp-for="Date" class="form-control" />
                 <span asp-validation-for="Date" class="text-danger"></span>
 
-                <label asp-for="Amount" class="control-label"></label>
+                <label asp-for="Amount" class="control-label">Preço:</label>
                 <input asp-for="Amount" class="form-control" />
                 <span asp-validation-for="Amount" class="text-danger"></span>
 
-                <label asp-for="Book" class="control-label"></label>
+                <label asp-for="Book" class="control-label">Livro:</label>
                 <div >@Html.DropDownList("BookId", ViewBag.BookId, String.Empty, new { @class = "form-control" })</div>
                 <span asp-validation-for="Book" class="text-danger"></span>
 
-                <label asp-for="Quantity" class="control-label"></label>
+                <label asp-for="Quantity" class="control-label">Quantidade</label>
                 <input asp-for="Quantity" class="form-control" />
                 <span asp-validation-for="Quantity" class="text-danger"></span>
             </div>
@@ -37,7 +37,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Voltar para à Lista</a>
 </div>
 
 @section Scripts {

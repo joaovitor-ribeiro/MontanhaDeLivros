@@ -84,7 +84,7 @@ namespace MontanhasDeLivros.Services
             }
             return await result
                 .Include(x => x.Book)
-                .OrderByDescending(x => x.Date)
+                .OrderByDescending(x => x.Date)        
                 .GroupBy(x => x.Book)
                 .ToListAsync();
         }
